@@ -5,107 +5,180 @@
   <title>مكتب الغدير فون | أسعار الأجهزة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.3s ease-in-out;
+    }
+
     body {
       margin: 0;
-      background: linear-gradient(to right, #f9fafb, #e0f7fa);
+      background: linear-gradient(to right, #e0f7fa, #f9fafb);
       color: #333;
       user-select: none;
     }
+
     header {
-      background: #0288d1;
+      background: #0077b6;
       color: white;
       padding: 20px;
       text-align: center;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: bold;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      animation: slideInDown 0.6s ease-out;
     }
+
     .admin-toggle {
       position: fixed;
       top: 10px;
       left: 10px;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       background: #4caf50;
       border-radius: 50%;
       cursor: pointer;
       z-index: 1000;
+      transition: transform 0.3s ease;
     }
+
+    .admin-toggle:hover {
+      transform: scale(1.2);
+    }
+
     .nav {
       display: flex;
       justify-content: center;
       gap: 10px;
-      background: #4dd0e1;
+      background: #90e0ef;
       padding: 10px;
+      animation: fadeIn 0.7s;
     }
+
     .nav button {
       background: white;
       border: none;
-      color: #00796b;
+      color: #023e8a;
       padding: 10px 20px;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+
+    .nav button:hover {
+      background: #caf0f8;
+    }
+
     .container {
       max-width: 900px;
       background: white;
       margin: 30px auto;
       padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+      animation: fadeInUp 0.5s ease-out;
     }
+
     h2 {
       text-align: center;
-      color: #00695c;
+      color: #0077b6;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: 600;
     }
+
     select, input[type='number'], input[type='text'] {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
-      border-radius: 8px;
+      border-radius: 10px;
       border: 1px solid #ccc;
+      background: #f1f1f1;
     }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #0077b6;
+      background-color: #e0f7fa;
+    }
+
     button.save-btn {
       margin-top: 20px;
       padding: 10px 25px;
-      background: #0097a7;
+      background: #0077b6;
       border: none;
       color: white;
       font-size: 16px;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
     }
+
+    button.save-btn:hover {
+      background: #005f99;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
+      border-radius: 12px;
+      overflow: hidden;
     }
+
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       padding: 12px;
       text-align: center;
     }
+
     th {
-      background: #f1f8e9;
-      color: #33691e;
+      background: #e3f2fd;
+      color: #01579b;
     }
+
+    tr:hover {
+      background: #f1faff;
+    }
+
     .hidden { display: none; }
+
     .action-btn {
       margin: 0 5px;
-      padding: 4px 8px;
+      padding: 5px 10px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
+      font-weight: bold;
     }
-    .edit-btn { background: #fff176; }
-    .delete-btn { background: #e57373; color: white; }
+
+    .edit-btn {
+      background: #ffee58;
+      color: #333;
+    }
+
+    .delete-btn {
+      background: #ef5350;
+      color: white;
+    }
+
+    @keyframes slideInDown {
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
