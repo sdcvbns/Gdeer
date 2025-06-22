@@ -2,18 +2,21 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>مكتب الغدير فون | أسعار الأجهزة </title>
+  <title>مكتب الغدير فون | أسعار الأجهزة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Cairo', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Cairo', sans-serif; }
     body {
       margin: 0;
       background: linear-gradient(to right, #f9fafb, #e0f7fa);
       color: #333;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
+    body::selection { background: none; }
+
     header {
       background: #0288d1;
       color: white;
@@ -23,6 +26,7 @@
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
+
     .admin-toggle {
       position: fixed;
       top: 10px;
@@ -34,6 +38,7 @@
       cursor: pointer;
       z-index: 1000;
     }
+
     .nav {
       display: flex;
       justify-content: center;
@@ -41,6 +46,7 @@
       background: #4dd0e1;
       padding: 10px;
     }
+
     .nav button {
       background: white;
       border: none;
@@ -50,6 +56,7 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .container {
       max-width: 900px;
       background: white;
@@ -58,24 +65,26 @@
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
+
     h2 {
       text-align: center;
       color: #00695c;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: 600;
     }
-    select,
-    input[type='number'],
-    input[type='text'] {
+
+    select, input[type='number'], input[type='text'] {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 8px;
       border: 1px solid #ccc;
     }
+
     button.save-btn {
       margin-top: 20px;
       padding: 10px 25px;
@@ -86,24 +95,28 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
     }
-    th,
-    td {
+
+    th, td {
       border: 1px solid #ccc;
       padding: 12px;
       text-align: center;
     }
+
     th {
       background: #f1f8e9;
       color: #33691e;
     }
+
     .hidden {
       display: none;
     }
+
     .action-btn {
       margin: 0 5px;
       padding: 4px 8px;
@@ -111,18 +124,20 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    .edit-btn {
-      background: #fff176;
-    }
-    .delete-btn {
-      background: #e57373;
-      color: white;
-    }
+
+    .edit-btn { background: #fff176; }
+    .delete-btn { background: #e57373; color: white; }
   </style>
+
+  <script>
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("copy", e => e.preventDefault());
+    document.addEventListener("cut", e => e.preventDefault());
+    document.addEventListener("selectstart", e => e.preventDefault());
+  </script>
 </head>
 <body>
   <div class="admin-toggle" onclick="checkAdminAccess()"></div>
-
   <header>مكتب الغدير فون | أسعار الأجهزة</header>
 
   <div class="nav hidden" id="navBar">
@@ -131,24 +146,17 @@
 
   <div id="admin" class="container hidden">
     <h2>إضافة أو تعديل سعر</h2>
+
     <label>الشركة</label>
     <select id="company">
-      <option>سامسونج</option>
-      <option>هونر</option>
-      <option>شاومي</option>
-      <option>أوبو</option>
-      <option>ريلمي</option>
-      <option>تكنو</option>
-      <option>ايفون</option>
-      <option>انفنيكس</option>
-      <option>آيتل</option>
+      <option>سامسونج</option><option>هونر</option><option>شاومي</option>
+      <option>أوبو</option><option>ريلمي</option><option>تكنو</option>
+      <option>ايفون</option><option>انفنيكس</option><option>آيتل</option>
     </select>
 
     <label>النوع</label>
     <select id="partType">
-      <option>Android</option>
-      <option>iPhone</option>
-      <option>Tablet</option>
+      <option>Android</option><option>iPhone</option><option>Tablet</option>
     </select>
 
     <label>نوع الجهاز</label>
@@ -157,16 +165,15 @@
     <label>السعر (بالدينار)</label>
     <input type="number" id="price" />
 
+    <label>الرام / الذاكرة</label>
+    <input type="text" id="ramStorage" placeholder="مثال: 4GB / 128GB" />
+
     <button class="save-btn" onclick="addToSheet()">حفظ</button>
 
     <table>
       <thead>
         <tr>
-          <th>الشركة</th>
-          <th>النوع</th>
-          <th>الجهاز</th>
-          <th>السعر</th>
-          <th>إجراءات</th>
+          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th><th>إجراءات</th>
         </tr>
       </thead>
       <tbody id="adminTable"></tbody>
@@ -177,9 +184,7 @@
     <h2>قائمة الأسعار</h2>
 
     <label>اختر الشركة</label>
-    <select id="filterCompany" onchange="updatePartFilter()">
-      <option value="">الكل</option>
-    </select>
+    <select id="filterCompany" onchange="updatePartFilter()"><option value="">الكل</option></select>
 
     <div id="partFilterContainer" class="hidden">
       <label>اختر النوع</label>
@@ -197,10 +202,7 @@
     <table>
       <thead>
         <tr>
-          <th>الشركة</th>
-          <th>النوع</th>
-          <th>الجهاز</th>
-          <th>السعر</th>
+          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th>
         </tr>
       </thead>
       <tbody id="priceTable"></tbody>
@@ -208,20 +210,21 @@
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz1vcvXJMwjNSrO9cpQitosEHOoH0IbFhbhQLE7Oa-7kV1J3wL-oJ0XSx3ELNWgwY3T/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzaFWeBqD4xBV_ZaucNfCWoWM3I-_LWnoU1kIb02pHzZq0_VmiRRaddlxKH-taapozR/exec";
     let allData = [];
     let editRow = null;
 
     function fetchData() {
       fetch(scriptURL)
-        .then((res) => res.json())
-        .then((rows) => {
+        .then(res => res.json())
+        .then(rows => {
           allData = rows.slice(1).map((row, i) => ({
             row: i + 2,
             company: row[0],
             part: row[1],
             device: row[2],
             price: row[3],
+            ramStorage: row[4]
           }));
           fillCompanyFilter();
           renderTable();
@@ -232,9 +235,8 @@
     function fillCompanyFilter() {
       const select = document.getElementById("filterCompany");
       const current = select.value;
-      const companies = [...new Set(allData.map((item) => item.company))];
-      select.innerHTML = `<option value="">الكل</option>` +
-        companies.map((c) => `<option value="${c}">${c}</option>`).join("");
+      const companies = [...new Set(allData.map(item => item.company))];
+      select.innerHTML = `<option value="">الكل</option>` + companies.map(c => `<option value="${c}">${c}</option>`).join("");
       select.value = current;
     }
 
@@ -245,35 +247,34 @@
       const filterPart = document.getElementById("filterPart")?.value || "";
       const search = document.getElementById("searchBox").value.toLowerCase();
 
-      allData
-        .filter(
-          (item) =>
-            (filterCompany === "" || item.company === filterCompany) &&
-            (filterPart === "" || item.part === filterPart) &&
-            item.device.toLowerCase().includes(search)
-        )
-        .forEach((item) => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${item.company}</td>
-            <td>${item.part}</td>
-            <td>${item.device}</td>
-            <td>${item.price}</td>
-          `;
-          table.appendChild(row);
-        });
-    }
-
-    function renderAdminTable() {
-      const table = document.getElementById("adminTable");
-      table.innerHTML = "";
-      allData.forEach((item) => {
+      allData.filter(item =>
+        (filterCompany === "" || item.company === filterCompany) &&
+        (filterPart === "" || item.part === filterPart) &&
+        item.device.toLowerCase().includes(search)
+      ).forEach(item => {
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${item.company}</td>
           <td>${item.part}</td>
           <td>${item.device}</td>
           <td>${item.price}</td>
+          <td>${item.ramStorage || ""}</td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    function renderAdminTable() {
+      const table = document.getElementById("adminTable");
+      table.innerHTML = "";
+      allData.forEach(item => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.company}</td>
+          <td>${item.part}</td>
+          <td>${item.device}</td>
+          <td>${item.price}</td>
+          <td>${item.ramStorage || ""}</td>
           <td>
             <button class="action-btn edit-btn" onclick='editEntry(${JSON.stringify(item)})'>تعديل</button>
             <button class="action-btn delete-btn" onclick='deleteEntry(${item.row})'>حذف</button>
@@ -288,6 +289,7 @@
       const part = document.getElementById("partType").value;
       const device = document.getElementById("deviceType").value;
       const price = document.getElementById("price").value;
+      const ramStorage = document.getElementById("ramStorage").value;
 
       if (!device || !price) return alert("يرجى ملء جميع الحقول");
 
@@ -296,6 +298,7 @@
       formData.append("part", part);
       formData.append("device", device);
       formData.append("price", price);
+      formData.append("ramStorage", ramStorage);
 
       if (editRow) {
         formData.append("action", "update");
@@ -303,11 +306,12 @@
       }
 
       fetch(scriptURL, { method: "POST", body: formData })
-        .then((res) => res.text())
-        .then((msg) => {
+        .then(res => res.text())
+        .then(msg => {
           alert(msg);
           document.getElementById("deviceType").value = "";
           document.getElementById("price").value = "";
+          document.getElementById("ramStorage").value = "";
           editRow = null;
           fetchData();
         });
@@ -318,6 +322,7 @@
       document.getElementById("partType").value = item.part;
       document.getElementById("deviceType").value = item.device;
       document.getElementById("price").value = item.price;
+      document.getElementById("ramStorage").value = item.ramStorage || "";
       editRow = item.row;
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -328,8 +333,8 @@
       formData.append("action", "delete");
       formData.append("row", row);
       fetch(scriptURL, { method: "POST", body: formData })
-        .then((res) => res.text())
-        .then((msg) => {
+        .then(res => res.text())
+        .then(msg => {
           alert(msg);
           fetchData();
         });
