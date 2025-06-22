@@ -10,13 +10,8 @@
       margin: 0;
       background: linear-gradient(to right, #f9fafb, #e0f7fa);
       color: #333;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
     }
-    body::selection { background: none; }
-
     header {
       background: #0288d1;
       color: white;
@@ -26,7 +21,6 @@
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
-
     .admin-toggle {
       position: fixed;
       top: 10px;
@@ -38,7 +32,6 @@
       cursor: pointer;
       z-index: 1000;
     }
-
     .nav {
       display: flex;
       justify-content: center;
@@ -46,7 +39,6 @@
       background: #4dd0e1;
       padding: 10px;
     }
-
     .nav button {
       background: white;
       border: none;
@@ -56,7 +48,6 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     .container {
       max-width: 900px;
       background: white;
@@ -65,18 +56,15 @@
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
     }
-
     h2 {
       text-align: center;
       color: #00695c;
     }
-
     label {
       display: block;
       margin-top: 15px;
       font-weight: 600;
     }
-
     select, input[type='number'], input[type='text'] {
       width: 100%;
       padding: 10px;
@@ -84,7 +72,6 @@
       border-radius: 8px;
       border: 1px solid #ccc;
     }
-
     button.save-btn {
       margin-top: 20px;
       padding: 10px 25px;
@@ -95,26 +82,21 @@
       border-radius: 8px;
       cursor: pointer;
     }
-
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
     }
-
     th, td {
       border: 1px solid #ccc;
       padding: 12px;
       text-align: center;
     }
-
     th {
       background: #f1f8e9;
       color: #33691e;
     }
-
     .hidden { display: none; }
-
     .action-btn {
       margin: 0 5px;
       padding: 4px 8px;
@@ -122,17 +104,9 @@
       border-radius: 4px;
       cursor: pointer;
     }
-
     .edit-btn { background: #fff176; }
     .delete-btn { background: #e57373; color: white; }
   </style>
-
-  <script>
-    document.addEventListener("contextmenu", e => e.preventDefault());
-    document.addEventListener("copy", e => e.preventDefault());
-    document.addEventListener("cut", e => e.preventDefault());
-    document.addEventListener("selectstart", e => e.preventDefault());
-  </script>
 </head>
 <body>
   <div class="admin-toggle" onclick="checkAdminAccess()"></div>
@@ -208,9 +182,7 @@
   </div>
 
   <script>
-    // ✅ رابط السكربت الجديد
-    const scriptURL = "https://script.google.com/macros/s/AKfycbx5YTS5yplXLFX7bZqCQ0DnZBltMXz_Gcwsa-J_66UVIo7SI1BtcVGZNgUmL0Sk6q7r/exec";
-
+    const scriptURL = "https://script.google.com/macros/s/AKfycbw5fNfRVyZz2hmNNi_i55QzFV-mX4fB87ncnPoy2yoRlIwWTwk0VJjGruJxtYZ1nGWq/exec";
     let allData = [];
     let editRow = null;
 
