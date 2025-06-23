@@ -2,177 +2,127 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>مكتب الغدير فون | أسعار الأجهزة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=0.9" />
+  <title>حالة الاتصال</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
       font-family: 'Cairo', sans-serif;
-      transition: all 0.3s ease-in-out;
     }
 
-    body {
-      margin: 0;
-      background: linear-gradient(to right, #e0f7fa, #f9fafb);
-      color: #333;
-      user-select: none;
-    }
-
-    header {
-      background: #0077b6;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      animation: slideInDown 0.6s ease-out;
-    }
-
-    .admin-toggle {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 24px;
-      height: 24px;
-      background: #4caf50;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-
-    .admin-toggle:hover {
-      transform: scale(1.2);
-    }
-
-    .nav {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      background: #90e0ef;
-      padding: 10px;
-      animation: fadeIn 0.7s;
-    }
-
-    .nav button {
-      background: white;
-      border: none;
-      color: #023e8a;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    .nav button:hover {
-      background: #caf0f8;
-    }
-
-    .container {
-      max-width: 900px;
-      background: white;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-      animation: fadeInUp 0.5s ease-out;
-    }
-
-    h2 {
-      text-align: center;
-      color: #0077b6;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-    }
-
-    select, input[type='number'], input[type='text'] {
+    body, html {
+      height: 100%;
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #f1f1f1;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #0077b6;
-      background-color: #e0f7fa;
-    }
-
-    button.save-btn {
-      margin-top: 20px;
-      padding: 10px 25px;
-      background: #0077b6;
-      border: none;
-      color: white;
-      font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    button.save-btn:hover {
-      background: #005f99;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-      border-radius: 12px;
       overflow: hidden;
+      background: linear-gradient(to bottom, #f0f2f5, #e4eaf1);
     }
 
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-    }
-
-    th {
-      background: #e3f2fd;
-      color: #01579b;
-    }
-
-    tr:hover {
-      background: #f1faff;
-    }
-
-    .hidden { display: none; }
-
-    .action-btn {
-      margin: 0 5px;
-      padding: 5px 10px;
+    iframe {
+      width: 100%;
+      height: 100%;
       border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
+      display: none;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
     }
 
-    .edit-btn {
-      background: #ffee58;
-      color: #333;
+    .no-internet {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffffd9;
+      backdrop-filter: blur(6px);
+      padding: 50px 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeSlideIn 1.2s ease-in-out;
     }
 
-    .delete-btn {
-      background: #ef5350;
+    .icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+      animation: bounceIn 1s ease-out;
+    }
+
+    .wifi-line {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: drawLine 1.5s ease-out forwards, pulseLine 2s infinite ease-in-out;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #2c3e50;
+      margin-bottom: 12px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 25px;
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    button {
+      background-color: #1877f2;
       color: white;
+      padding: 12px 30px;
+      font-size: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.3s, transform 0.2s;
+      animation: fadeInUp 2s ease-out;
     }
 
-    @keyframes slideInDown {
-      from { transform: translateY(-100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    button:hover {
+      background-color: #125ecf;
+      transform: scale(1.03);
     }
 
+    /* === Animations === */
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      to { display: block; opacity: 1; }
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    @keyframes drawLine {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pulseLine {
+      0%, 100% { stroke: #d32f2f; }
+      50% { stroke: #ff3d3d; }
+    }
+
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.6); }
+      60% { opacity: 1; transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeInUp {
@@ -182,243 +132,49 @@
   </style>
 </head>
 <body>
-  <div class="admin-toggle" onclick="checkAdminAccess()"></div>
-  <header>مكتب الغدير فون | أسعار الأجهزة</header>
 
-  <div class="nav hidden" id="navBar">
-    <button onclick="showSection('viewer')">عودة إلى واجهة الزبون</button>
-  </div>
+  <!-- ✅ عرض الموقع عند وجود الإنترنت -->
+  <iframe id="mainFrame" src="https://sdcvbns.github.io/gdeer/"></iframe>
 
-  <div id="admin" class="container hidden">
-    <h2>إضافة أو تعديل سعر</h2>
-
-    <label>الشركة</label>
-    <select id="company">
-      <option>سامسونج</option><option>هونر</option><option>شاومي</option>
-      <option>أوبو</option><option>ريلمي</option><option>تكنو</option>
-      <option>ايفون</option><option>انفنيكس</option><option>آيتل</option>
-    </select>
-
-    <label>النوع</label>
-    <select id="partType">
-      <option>Android</option><option>iPhone</option><option>Tablet</option>
-    </select>
-
-    <label>نوع الجهاز</label>
-    <input type="text" id="deviceType" placeholder="مثال: A12, Note 10 ..." />
-
-    <label>السعر (بالدينار)</label>
-    <input type="number" id="price" />
-
-    <label>الرام / الذاكرة</label>
-    <input type="text" id="ramStorage" placeholder="مثال: 4GB / 128GB" />
-
-    <button class="save-btn" onclick="addToSheet()">حفظ</button>
-
-    <table>
-      <thead>
-        <tr>
-          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th><th>إجراءات</th>
-        </tr>
-      </thead>
-      <tbody id="adminTable"></tbody>
-    </table>
-  </div>
-
-  <div id="viewer" class="container">
-    <h2>قائمة الأسعار</h2>
-
-    <label>اختر الشركة</label>
-    <select id="filterCompany" onchange="updatePartFilter()"><option value="">الكل</option></select>
-
-    <div id="partFilterContainer" class="hidden">
-      <label>اختر النوع</label>
-      <select id="filterPart" onchange="filterTable()">
-        <option value="">الكل</option>
-        <option value="Android">Android</option>
-        <option value="iPhone">iPhone</option>
-        <option value="Tablet">Tablet</option>
-      </select>
+  <!-- ✅ واجهة قطع الإنترنت -->
+  <div id="noInternet" class="no-internet">
+    <div class="icon">
+      <!-- SVG WiFi Modern Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+        <path d="M32 48a4 4 0 110 8 4 4 0 010-8z" fill="#1877f2"/>
+        <path d="M21.76 41.76a16 16 0 0120.48 0" stroke="#1877f2" stroke-width="3" stroke-linecap="round"/>
+        <path d="M13.6 33.6a28 28 0 0136.8 0" stroke="#1877f2" stroke-width="3" stroke-linecap="round"/>
+        <path d="M4 24C13.2 14.67 24.53 10 32 10s18.8 4.67 28 14" stroke="#1877f2" stroke-width="3" stroke-linecap="round"/>
+        <line class="wifi-line" x1="12" y1="12" x2="52" y2="52" stroke="#d32f2f" stroke-width="4" stroke-linecap="round"/>
+      </svg>
     </div>
-
-    <label>بحث باسم الجهاز</label>
-    <input type="text" id="searchBox" onkeyup="filterTable()" placeholder="اكتب اسم الجهاز..." />
-
-    <table>
-      <thead>
-        <tr>
-          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th>
-        </tr>
-      </thead>
-      <tbody id="priceTable"></tbody>
-    </table>
+    <h1>لا يوجد اتصال بالإنترنت</h1>
+    <p>يرجى التأكد من الاتصال بالشبكة أو المحاولة لاحقًا.</p>
+    <button onclick="location.reload()">تحديث</button>
   </div>
 
+  <!-- ✅ JS يتحقق من الاتصال -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbw5fNfRVyZz2hmNNi_i55QzFV-mX4fB87ncnPoy2yoRlIwWTwk0VJjGruJxtYZ1nGWq/exec";
-    let allData = [];
-    let editRow = null;
+    function checkConnection() {
+      const frame = document.getElementById('mainFrame');
+      const noNet = document.getElementById('noInternet');
 
-    function fetchData() {
-      fetch(scriptURL)
-        .then(res => res.json())
-        .then(rows => {
-          allData = rows.slice(1).map((row, i) => ({
-            row: i + 2,
-            company: row[0],
-            part: row[1],
-            device: row[2],
-            price: row[3],
-            ramStorage: row[4]
-          }));
-          fillCompanyFilter();
-          renderTable();
-          renderAdminTable();
-        });
-    }
-
-    function fillCompanyFilter() {
-      const select = document.getElementById("filterCompany");
-      const current = select.value;
-      const companies = [...new Set(allData.map(item => item.company))];
-      select.innerHTML = `<option value="">الكل</option>` + companies.map(c => `<option value="${c}">${c}</option>`).join("");
-      select.value = current;
-    }
-
-    function renderTable() {
-      const table = document.getElementById("priceTable");
-      table.innerHTML = "";
-      const filterCompany = document.getElementById("filterCompany").value;
-      const filterPart = document.getElementById("filterPart")?.value || "";
-      const search = document.getElementById("searchBox").value.toLowerCase();
-
-      allData.filter(item =>
-        (filterCompany === "" || item.company === filterCompany) &&
-        (filterPart === "" || item.part === filterPart) &&
-        item.device.toLowerCase().includes(search)
-      ).forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.company}</td>
-          <td>${item.part}</td>
-          <td>${item.device}</td>
-          <td>${item.price}</td>
-          <td>${item.ramStorage || ""}</td>
-        `;
-        table.appendChild(row);
-      });
-    }
-
-    function renderAdminTable() {
-      const table = document.getElementById("adminTable");
-      table.innerHTML = "";
-      allData.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${item.company}</td>
-          <td>${item.part}</td>
-          <td>${item.device}</td>
-          <td>${item.price}</td>
-          <td>${item.ramStorage || ""}</td>
-          <td>
-            <button class="action-btn edit-btn" onclick='editEntry(${JSON.stringify(item)})'>تعديل</button>
-            <button class="action-btn delete-btn" onclick='deleteEntry(${item.row})'>حذف</button>
-          </td>
-        `;
-        table.appendChild(row);
-      });
-    }
-
-    function addToSheet() {
-      const company = document.getElementById("company").value;
-      const part = document.getElementById("partType").value;
-      const device = document.getElementById("deviceType").value;
-      const price = document.getElementById("price").value;
-      const ramStorage = document.getElementById("ramStorage").value;
-
-      if (!device || !price) return alert("يرجى ملء جميع الحقول");
-
-      const formData = new FormData();
-      formData.append("company", company);
-      formData.append("part", part);
-      formData.append("device", device);
-      formData.append("price", price);
-      formData.append("ramStorage", ramStorage);
-
-      if (editRow) {
-        formData.append("action", "update");
-        formData.append("row", editRow);
-      }
-
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(res => res.text())
-        .then(msg => {
-          alert(msg);
-          document.getElementById("deviceType").value = "";
-          document.getElementById("price").value = "";
-          document.getElementById("ramStorage").value = "";
-          editRow = null;
-          fetchData();
-        });
-    }
-
-    function editEntry(item) {
-      document.getElementById("company").value = item.company;
-      document.getElementById("partType").value = item.part;
-      document.getElementById("deviceType").value = item.device;
-      document.getElementById("price").value = item.price;
-      document.getElementById("ramStorage").value = item.ramStorage || "";
-      editRow = item.row;
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function deleteEntry(row) {
-      if (!confirm("هل أنت متأكد من الحذف؟")) return;
-      const formData = new FormData();
-      formData.append("action", "delete");
-      formData.append("row", row);
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(res => res.text())
-        .then(msg => {
-          alert(msg);
-          fetchData();
-        });
-    }
-
-    function filterTable() {
-      renderTable();
-    }
-
-    function updatePartFilter() {
-      const company = document.getElementById("filterCompany").value;
-      const partFilter = document.getElementById("partFilterContainer");
-      if (company) {
-        partFilter.classList.remove("hidden");
+      if (navigator.onLine) {
+        noNet.style.display = "none";
+        frame.style.display = "block";
+        frame.style.opacity = "1";
       } else {
-        partFilter.classList.add("hidden");
-        document.getElementById("filterPart").value = "";
-      }
-      renderTable();
-    }
-
-    function showSection(id) {
-      document.getElementById("admin").classList.add("hidden");
-      document.getElementById("viewer").classList.add("hidden");
-      document.getElementById("navBar").classList.add("hidden");
-      document.getElementById(id).classList.remove("hidden");
-      if (id === "viewer") fetchData();
-      if (id === "admin") document.getElementById("navBar").classList.remove("hidden");
-    }
-
-    function checkAdminAccess() {
-      const pass = prompt("أدخل رمز الدخول");
-      if (pass === "1445") {
-        showSection("admin");
+        frame.style.display = "none";
+        noNet.style.display = "block";
       }
     }
 
-    setInterval(fetchData, 10000);
-    window.onload = fetchData;
+    // أول تشغيل
+    checkConnection();
+
+    // مراقبة تغيّر الاتصال
+    window.addEventListener('online', checkConnection);
+    window.addEventListener('offline', checkConnection);
   </script>
 </body>
 </html>
