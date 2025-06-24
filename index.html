@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>مكتب الغدير فون | أسعار الأجهزة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <style>
     * {
       box-sizing: border-box;
@@ -25,8 +25,6 @@
       text-align: center;
       font-size: 26px;
       font-weight: bold;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      animation: slideInDown 0.6s ease-out;
     }
 
     .admin-toggle {
@@ -39,11 +37,6 @@
       border-radius: 50%;
       cursor: pointer;
       z-index: 1000;
-      transition: transform 0.3s ease;
-    }
-
-    .admin-toggle:hover {
-      transform: scale(1.2);
     }
 
     .nav {
@@ -52,37 +45,32 @@
       gap: 10px;
       background: #90e0ef;
       padding: 10px;
-      animation: fadeIn 0.7s;
+      flex-wrap: wrap;
     }
 
-    .nav button {
-      background: white;
+    .nav button, .save-btn {
+      background: #0077b6;
+      color: white;
       border: none;
-      color: #023e8a;
       padding: 10px 20px;
       border-radius: 10px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 16px;
     }
 
-    .nav button:hover {
-      background: #caf0f8;
+    .nav button:hover, .save-btn:hover {
+      background: #005f99;
     }
 
     .container {
+      width: 95%;
       max-width: 900px;
       background: white;
       margin: 30px auto;
       padding: 20px;
       border-radius: 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-      animation: fadeInUp 0.5s ease-out;
-    }
-
-    h2 {
-      text-align: center;
-      color: #0077b6;
     }
 
     label {
@@ -98,41 +86,21 @@
       border-radius: 10px;
       border: 1px solid #ccc;
       background: #f1f1f1;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #0077b6;
-      background-color: #e0f7fa;
-    }
-
-    button.save-btn {
-      margin-top: 20px;
-      padding: 10px 25px;
-      background: #0077b6;
-      border: none;
-      color: white;
       font-size: 16px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    button.save-btn:hover {
-      background: #005f99;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 30px;
-      border-radius: 12px;
-      overflow: hidden;
     }
 
     th, td {
       border: 1px solid #ddd;
       padding: 12px;
       text-align: center;
+      white-space: nowrap;
+      font-size: 14px;
     }
 
     th {
@@ -140,11 +108,9 @@
       color: #01579b;
     }
 
-    tr:hover {
-      background: #f1faff;
+    .hidden {
+      display: none;
     }
-
-    .hidden { display: none; }
 
     .action-btn {
       margin: 0 5px;
@@ -165,19 +131,35 @@
       color: white;
     }
 
-    @keyframes slideInDown {
-      from { transform: translateY(-100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
+    /* Responsive Table on Small Screens */
+    @media screen and (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+      thead tr {
+        display: none;
+      }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      tr {
+        margin-bottom: 15px;
+        border-bottom: 2px solid #ccc;
+        padding: 10px;
+      }
+
+      td {
+        text-align: right;
+        padding-right: 40%;
+        position: relative;
+      }
+
+      td::before {
+        content: attr(data-label);
+        position: absolute;
+        right: 10px;
+        font-weight: bold;
+        color: #0077b6;
+      }
     }
   </style>
 </head>
@@ -210,6 +192,9 @@
     <label>السعر (بالدينار)</label>
     <input type="number" id="price" />
 
+    <label>السعر ($)</label>
+    <input type="number" id="usdPrice" />
+
     <label>الرام / الذاكرة</label>
     <input type="text" id="ramStorage" placeholder="مثال: 4GB / 128GB" />
 
@@ -218,7 +203,7 @@
     <table>
       <thead>
         <tr>
-          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th><th>إجراءات</th>
+          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>السعر ($)</th><th>الرام / الذاكرة</th><th>إجراءات</th>
         </tr>
       </thead>
       <tbody id="adminTable"></tbody>
@@ -247,7 +232,7 @@
     <table>
       <thead>
         <tr>
-          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>الرام / الذاكرة</th>
+          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>السعر ($)</th><th>الرام / الذاكرة</th>
         </tr>
       </thead>
       <tbody id="priceTable"></tbody>
@@ -255,7 +240,7 @@
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbw5fNfRVyZz2hmNNi_i55QzFV-mX4fB87ncnPoy2yoRlIwWTwk0VJjGruJxtYZ1nGWq/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxnn4JT26ioNu1Bfw-o2TD_fJ3gfOAz3KNyJP9ZMP4K9qEXDFTCzy7mNZx7Z_wdrUFp/exec";
     let allData = [];
     let editRow = null;
 
@@ -269,7 +254,8 @@
             part: row[1],
             device: row[2],
             price: row[3],
-            ramStorage: row[4]
+            usdPrice: row[4],
+            ramStorage: row[5]
           }));
           fillCompanyFilter();
           renderTable();
@@ -299,11 +285,12 @@
       ).forEach(item => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${item.company}</td>
-          <td>${item.part}</td>
-          <td>${item.device}</td>
-          <td>${item.price}</td>
-          <td>${item.ramStorage || ""}</td>
+          <td data-label="الشركة">${item.company}</td>
+          <td data-label="النوع">${item.part}</td>
+          <td data-label="الجهاز">${item.device}</td>
+          <td data-label="السعر">${item.price}</td>
+          <td data-label="السعر ($)">${item.usdPrice}</td>
+          <td data-label="الرام / الذاكرة">${item.ramStorage}</td>
         `;
         table.appendChild(row);
       });
@@ -315,11 +302,12 @@
       allData.forEach(item => {
         const row = document.createElement("tr");
         row.innerHTML = `
-          <td>${item.company}</td>
-          <td>${item.part}</td>
-          <td>${item.device}</td>
-          <td>${item.price}</td>
-          <td>${item.ramStorage || ""}</td>
+          <td data-label="الشركة">${item.company}</td>
+          <td data-label="النوع">${item.part}</td>
+          <td data-label="الجهاز">${item.device}</td>
+          <td data-label="السعر">${item.price}</td>
+          <td data-label="السعر ($)">${item.usdPrice}</td>
+          <td data-label="الرام / الذاكرة">${item.ramStorage}</td>
           <td>
             <button class="action-btn edit-btn" onclick='editEntry(${JSON.stringify(item)})'>تعديل</button>
             <button class="action-btn delete-btn" onclick='deleteEntry(${item.row})'>حذف</button>
@@ -334,6 +322,7 @@
       const part = document.getElementById("partType").value;
       const device = document.getElementById("deviceType").value;
       const price = document.getElementById("price").value;
+      const usdPrice = document.getElementById("usdPrice").value;
       const ramStorage = document.getElementById("ramStorage").value;
 
       if (!device || !price) return alert("يرجى ملء جميع الحقول");
@@ -343,6 +332,7 @@
       formData.append("part", part);
       formData.append("device", device);
       formData.append("price", price);
+      formData.append("usdPrice", usdPrice);
       formData.append("ramStorage", ramStorage);
 
       if (editRow) {
@@ -356,6 +346,7 @@
           alert(msg);
           document.getElementById("deviceType").value = "";
           document.getElementById("price").value = "";
+          document.getElementById("usdPrice").value = "";
           document.getElementById("ramStorage").value = "";
           editRow = null;
           fetchData();
@@ -367,7 +358,8 @@
       document.getElementById("partType").value = item.part;
       document.getElementById("deviceType").value = item.device;
       document.getElementById("price").value = item.price;
-      document.getElementById("ramStorage").value = item.ramStorage || "";
+      document.getElementById("usdPrice").value = item.usdPrice;
+      document.getElementById("ramStorage").value = item.ramStorage;
       editRow = item.row;
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
