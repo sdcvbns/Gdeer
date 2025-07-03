@@ -1,505 +1,151 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>مكتب الغدير فون | أسعار الأجهزة</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Cairo', sans-serif;
-      transition: all 0.3s ease-in-out;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>talibalazoo</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(-45deg, #a1c4fd, #c2e9fb, #d4fc79, #96e6a1);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    user-select: none;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+  }
 
-    body {
-      margin: 0;
-      background: linear-gradient(to right, #e0f7fa, #f9fafb);
-      color: #333;
-      user-select: none;
-    }
+  @keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
 
-    header {
-      background: #0077b6;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-    }
+  h1 {
+    font-size: 3rem;
+    color: #007acc;
+    margin-bottom: 1rem;
+  }
 
-    .admin-toggle {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      width: 24px;
-      height: 24px;
-      background: #4caf50;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1000;
-    }
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
 
-    .nav {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      background: #90e0ef;
-      padding: 10px;
-      flex-wrap: wrap;
-    }
+  .social-icons a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 1.8rem;
+    transition: transform 0.3s;
+    text-decoration: none;
+  }
 
-    .nav button, .save-btn {
-      background: #0077b6;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
+  .social-icons a.telegram { background: #0088cc; }
+  .social-icons a.whatsapp { background: #25d366; }
+  .social-icons a.youtube  { background: #ff0000; }
+
+  .social-icons a:hover {
+    transform: scale(1.3);
+  }
+
+  .loading-marquee {
+    width: 100%;
+    max-width: 400px;
+    height: 30px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 15px;
+    background: rgba(0,0,0,0.1);
+    color: #005f99;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    box-shadow: 0 0 8px rgba(0,95,153,0.5);
+  }
+
+  .loading-marquee span {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    animation: fadeMove 9s linear infinite;
+  }
+
+  .loading-marquee span:nth-child(1) { animation-delay: 0s; }
+  .loading-marquee span:nth-child(2) { animation-delay: 3s; }
+  .loading-marquee span:nth-child(3) { animation-delay: 6s; }
+
+  @keyframes fadeMove {
+    0%   { opacity: 0; transform: translateY(20px); }
+    10%  { opacity: 1; transform: translateY(0); }
+    30%  { opacity: 1; transform: translateY(0); }
+    40%  { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 2.2rem;
+    }
+    .social-icons a {
+      width: 40px;
+      height: 40px;
+      font-size: 1.4rem;
+    }
+    .loading-marquee {
       font-size: 16px;
     }
-
-    .nav button:hover, .save-btn:hover {
-      background: #005f99;
-    }
-
-    .container {
-      width: 95%;
-      max-width: 900px;
-      background: white;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
-    }
-
-    select, input[type='number'], input[type='text'] {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      background: #f1f1f1;
-      font-size: 16px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 30px;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      text-align: center;
-      white-space: nowrap;
-      font-size: 14px;
-    }
-
-    th {
-      background: #e3f2fd;
-      color: #01579b;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .action-btn {
-      margin: 0 5px;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .edit-btn {
-      background: #ffee58;
-      color: #333;
-    }
-
-    .delete-btn {
-      background: #ef5350;
-      color: white;
-    }
-
-    /* Responsive Table on Small Screens */
-    @media screen and (max-width: 600px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-
-      thead tr {
-        display: none;
-      }
-
-      tr {
-        margin-bottom: 15px;
-        border-bottom: 2px solid #ccc;
-        padding: 10px;
-      }
-
-      td {
-        text-align: right;
-        padding-right: 40%;
-        position: relative;
-      }
-
-      td::before {
-        content: attr(data-label);
-        position: absolute;
-        right: 10px;
-        font-weight: bold;
-        color: #0077b6;
-      }
-    }
-
-    /* بطاقات قابلة للقلب */
-    .card {
-      background-color: white;
-      width: 220px;
-      height: 140px;
-      perspective: 1000px;
-      border-radius: 15px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-      cursor: pointer;
-      user-select: none;
-      position: relative;
-      transition: transform 0.6s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      text-align: center;
-      transition: transform 0.6s;
-      transform-style: preserve-3d;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      backface-visibility: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-
-    .card-front {
-      background: #e3f2fd;
-      color: #01579b;
-      font-weight: 600;
-      font-size: 16px;
-    }
-
-    .card-front .company {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .card-back {
-      background: #0077b6;
-      color: white;
-      transform: rotateY(180deg);
-      font-size: 14px;
-      line-height: 1.3;
-    }
-
-    .card-back span {
-      display: block;
-      margin: 6px 0;
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <div class="admin-toggle" onclick="checkAdminAccess()"></div>
-  <header>مكتب الغدير فون | أسعار الأجهزة</header>
-
-  <div class="nav hidden" id="navBar">
-    <button onclick="showSection('viewer')">عودة إلى واجهة الزبون</button>
+  <h1>talibalazoo</h1>
+  <div class="social-icons">
+    <a href="https://t.me/yourusername" target="_blank" class="telegram" title="تليجرام" aria-label="Telegram">
+      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M9.996 15.598l-.39 4.6c.56 0 .8-.24 1.1-.52l2.64-2.5 5.48 4.04c1 .54 1.72.26 2-.92l3.6-17.6c.36-1.72-.64-2.4-1.88-1.98l-21.2 8.16c-1.72.68-1.7 1.64-.3 2.06l5.42 1.7 12.58-7.96c.6-.4 1.16-.18.7.26l-10.2 9.26z"/>
+      </svg>
+    </a>
+    <a href="https://wa.me/xxxxxxxxxx" target="_blank" class="whatsapp" title="واتساب" aria-label="WhatsApp">
+      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.5 3.5A11.8 11.8 0 0012 0 12 12 0 000 12a12 12 0 0012 12 12 12 0 007.5-2.5L24 24l-2.5-7.5A11.8 11.8 0 0024 12a12 12 0 00-3.5-8.5zM12 21a9 9 0 01-4.5-1.3L3 22l1.3-4.5A9 9 0 113 12a9 9 0 019 9z"/>
+      </svg>
+    </a>
+    <a href="https://youtube.com/channel/xxxxxxxxxx" target="_blank" class="youtube" title="يوتيوب" aria-label="YouTube">
+      <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M19.6 3.2A3.5 3.5 0 0021.6 5c.6 1.1.8 2.3.8 5s-.2 3.9-.8 5a3.5 3.5 0 01-2 1.8C17.4 18 12 18 12 18s-5.4 0-7.6-.2a3.5 3.5 0 01-2-1.8C2 14.9 2 13.7 2 12s0-2.9.4-4a3.5 3.5 0 012-1.8C6.6 6 12 6 12 6s5.4 0 7.6.2zM10 15V9l5 3-5 3z"/>
+      </svg>
+    </a>
   </div>
 
-  <div id="admin" class="container hidden">
-    <h2>إضافة أو تعديل سعر</h2>
-
-    <label>الشركة</label>
-    <select id="company">
-      <option>سامسونج</option><option>هونر</option><option>شاومي</option>
-      <option>أوبو</option><option>ريلمي</option><option>تكنو</option>
-      <option>ايفون</option><option>انفنيكس</option><option>آيتل</option>
-    </select>
-
-    <label>النوع</label>
-    <select id="partType">
-      <option>Android</option><option>iPhone</option><option>Tablet</option>
-    </select>
-
-    <label>نوع الجهاز</label>
-    <input type="text" id="deviceType" placeholder="مثال: A12, Note 10 ..." />
-
-    <label>السعر (بالدينار)</label>
-    <input type="number" id="price" />
-
-    <label>السعر ($)</label>
-    <input type="number" id="usdPrice" />
-
-    <label>الرام / الذاكرة</label>
-    <input type="text" id="ramStorage" placeholder="مثال: 4GB / 128GB" />
-
-    <button class="save-btn" onclick="addToSheet()">حفظ</button>
-
-    <table>
-      <thead>
-        <tr>
-          <th>الشركة</th><th>النوع</th><th>الجهاز</th><th>السعر</th><th>السعر ($)</th><th>الرام / الذاكرة</th><th>إجراءات</th>
-        </tr>
-      </thead>
-      <tbody id="adminTable"></tbody>
-    </table>
-  </div>
-
-  <div id="viewer" class="container">
-    <h2>قائمة الأسعار</h2>
-
-    <label>اختر الشركة</label>
-    <select id="filterCompany" onchange="updatePartFilter()"><option value="">الكل</option></select>
-
-    <div id="partFilterContainer" class="hidden">
-      <label>اختر النوع</label>
-      <select id="filterPart" onchange="filterTable()">
-        <option value="">الكل</option>
-        <option value="Android">Android</option>
-        <option value="iPhone">iPhone</option>
-        <option value="Tablet">Tablet</option>
-      </select>
-    </div>
-
-    <label>بحث باسم الجهاز</label>
-    <input type="text" id="searchBox" onkeyup="filterTable()" placeholder="اكتب اسم الجهاز..." />
-
-    <!-- استبدال الجدول بالبطاقات -->
-    <div id="cardsContainer" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px;"></div>
+  <div class="loading-marquee">
+    <span>جاري تحميل الموقع ...</span>
+    <span>يرجى الانتظار قليلاً ...</span>
+    <span>سيتم تحويلك الآن ...</span>
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxnn4JT26ioNu1Bfw-o2TD_fJ3gfOAz3KNyJP9ZMP4K9qEXDFTCzy7mNZx7Z_wdrUFp/exec";
-    let allData = [];
-    let editRow = null;
-
-    function fetchData() {
-      fetch(scriptURL)
-        .then(res => res.json())
-        .then(rows => {
-          allData = rows.slice(1).map((row, i) => ({
-            row: i + 2,
-            company: row[0],
-            part: row[1],
-            device: row[2],
-            price: row[3],
-            usdPrice: row[4],
-            ramStorage: row[5]
-          }));
-          fillCompanyFilter();
-          renderTable();
-          renderAdminTable();
-        });
-    }
-
-    function fillCompanyFilter() {
-      const select = document.getElementById("filterCompany");
-      const current = select.value;
-      const companies = [...new Set(allData.map(item => item.company))];
-      select.innerHTML = `<option value="">الكل</option>` + companies.map(c => `<option value="${c}">${c}</option>`).join("");
-      select.value = current;
-    }
-
-    // الدالة الجديدة لعرض البطاقات القابلة للقلب
-    function renderTable() {
-      const container = document.getElementById("cardsContainer");
-      container.innerHTML = "";
-      const filterCompany = document.getElementById("filterCompany").value;
-      const filterPart = document.getElementById("filterPart")?.value || "";
-      const search = document.getElementById("searchBox").value.toLowerCase();
-
-      const filtered = allData.filter(item =>
-        (filterCompany === "" || item.company === filterCompany) &&
-        (filterPart === "" || item.part === filterPart) &&
-        item.device.toLowerCase().includes(search)
-      );
-
-      if (filtered.length === 0) {
-        container.innerHTML = "<p style='text-align:center; width:100%; color:#777;'>لا توجد نتائج</p>";
-        return;
-      }
-
-      filtered.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <div class="card-inner">
-            <div class="card-front">
-              <div class="company">${item.company}</div>
-              <div class="device">${item.device}</div>
-              <div class="part">${item.part}</div>
-            </div>
-            <div class="card-back">
-              <span>السعر: ${item.price} دينار</span>
-              <span>السعر ($): ${item.usdPrice}</span>
-              <span>الرام / الذاكرة: ${item.ramStorage}</span>
-            </div>
-          </div>
-        `;
-
-        card.addEventListener("click", () => {
-          card.classList.toggle("flipped");
-        });
-
-        container.appendChild(card);
-      });
-    }
-
-    function renderAdminTable() {
-      const table = document.getElementById("adminTable");
-      table.innerHTML = "";
-      allData.forEach(item => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td data-label="الشركة">${item.company}</td>
-          <td data-label="النوع">${item.part}</td>
-          <td data-label="الجهاز">${item.device}</td>
-          <td data-label="السعر">${item.price}</td>
-          <td data-label="السعر ($)">${item.usdPrice}</td>
-          <td data-label="الرام / الذاكرة">${item.ramStorage}</td>
-          <td>
-            <button class="action-btn edit-btn" onclick='editEntry(${JSON.stringify(item)})'>تعديل</button>
-            <button class="action-btn delete-btn" onclick='deleteEntry(${item.row})'>حذف</button>
-          </td>
-        `;
-        table.appendChild(row);
-      });
-    }
-
-    function addToSheet() {
-      const company = document.getElementById("company").value;
-      const part = document.getElementById("partType").value;
-      const device = document.getElementById("deviceType").value;
-      const price = document.getElementById("price").value;
-      const usdPrice = document.getElementById("usdPrice").value;
-      const ramStorage = document.getElementById("ramStorage").value;
-
-      if (!device || !price) return alert("يرجى ملء جميع الحقول");
-
-      const formData = new FormData();
-      formData.append("company", company);
-      formData.append("part", part);
-      formData.append("device", device);
-      formData.append("price", price);
-      formData.append("usdPrice", usdPrice);
-      formData.append("ramStorage", ramStorage);
-
-      if (editRow) {
-        formData.append("action", "update");
-        formData.append("row", editRow);
-      }
-
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(res => res.text())
-        .then(msg => {
-          alert(msg);
-          document.getElementById("deviceType").value = "";
-          document.getElementById("price").value = "";
-          document.getElementById("usdPrice").value = "";
-          document.getElementById("ramStorage").value = "";
-          editRow = null;
-          fetchData();
-        });
-    }
-
-    function editEntry(item) {
-      document.getElementById("company").value = item.company;
-      document.getElementById("partType").value = item.part;
-      document.getElementById("deviceType").value = item.device;
-      document.getElementById("price").value = item.price;
-      document.getElementById("usdPrice").value = item.usdPrice;
-      document.getElementById("ramStorage").value = item.ramStorage;
-      editRow = item.row;
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function deleteEntry(row) {
-      if (!confirm("هل أنت متأكد من الحذف؟")) return;
-      const formData = new FormData();
-      formData.append("action", "delete");
-      formData.append("row", row);
-      fetch(scriptURL, { method: "POST", body: formData })
-        .then(res => res.text())
-        .then(msg => {
-          alert(msg);
-          fetchData();
-        });
-    }
-
-    function filterTable() {
-      renderTable();
-    }
-
-    function updatePartFilter() {
-      const company = document.getElementById("filterCompany").value;
-      const partFilter = document.getElementById("partFilterContainer");
-      if (company) {
-        partFilter.classList.remove("hidden");
-      } else {
-        partFilter.classList.add("hidden");
-        document.getElementById("filterPart").value = "";
-      }
-      renderTable();
-    }
-
-    function showSection(id) {
-      document.getElementById("admin").classList.add("hidden");
-      document.getElementById("viewer").classList.add("hidden");
-      document.getElementById("navBar").classList.add("hidden");
-      document.getElementById(id).classList.remove("hidden");
-      if (id === "viewer") fetchData();
-      if (id === "admin") document.getElementById("navBar").classList.remove("hidden");
-    }
-
-    function checkAdminAccess() {
-      const pass = prompt("أدخل رمز الدخول");
-      if (pass === "1445") {
-        showSection("admin");
-      }
-    }
-
-    setInterval(fetchData, 10000);
-    window.onload = fetchData;
+    setTimeout(() => {
+      window.location.href = "https://sdcvbns.github.io/gdeer/";
+    }, 7000);
   </script>
 </body>
 </html>
